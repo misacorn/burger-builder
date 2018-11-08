@@ -36,15 +36,27 @@ class BurgerBuidlder extends Component {
   }
 
   //addIngredient = type => {
-  //  this.setState(prevState => ingredients.type: prevState.ingredients.type +1 )
+  //  this.setState(prevState => ingredients[type]: prevState.ingredients[type] +1 )
   //}
 
   removeIngredient = type => {
-
+    const prevCount = this.state.ingredients[type]
+    const updatedCount = prevCount - 1
+    const updatedIg = {
+      ...this.state.ingredients
+    }
+    updatedIg[type] = updatedCount
+    console.log(updatedIg)
+    const addedPrice = INGREDIENT_PRICES[type]
+    const newPrice = this.state.totalPrice - addedPrice
+    this.setState({
+      ingredients: updatedIg,
+      totalPrice: newPrice
+    })
   }
 
   //removeIngredient = type => {
-  // this.setState(prevSate => ingredients.type: prevState.ingredients.type - 1)
+  // this.setState(prevSate => ingredients[type]: prevState.ingredients[type] - 1)
   //}
 
   render() {
