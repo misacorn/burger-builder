@@ -8,7 +8,7 @@ const INGREDIENT_PRICES = {
   bacon: 1.5,
   cheese: 0.8,
   meat: 1
-}
+};
 class BurgerBuidlder extends Component {
   state = {
     ingredients: {
@@ -17,43 +17,55 @@ class BurgerBuidlder extends Component {
       cheese: 0,
       meat: 0
     },
-    totalPrice: 2
+    totalPrice: 2,
+    purchasable: false
   };
-  
+
+  isPurchasable(ingredients) { 
+    const sum = Object.keys(ingredients)
+      .map(igKey => ingredients[igKey])
+      .reduce((sum, el) => {
+        return sum + el;
+      }, 0);
+    this.setState({ purchasable: sum > 0 });
+  }
+
   addIngredient = type => {
-    const prevCount = this.state.ingredients[type]
-    const updatedCount = prevCount + 1
+    const prevCount = this.state.ingredients[type];
+    const updatedCount = prevCount + 1;
     const updatedIg = {
       ...this.state.ingredients
-    }
-    updatedIg[type] = updatedCount
-    const addedPrice = INGREDIENT_PRICES[type]
-    const newPrice = this.state.totalPrice + addedPrice
+    };
+    updatedIg[type] = updatedCount;
+    const addedPrice = INGREDIENT_PRICES[type];
+    const newPrice = this.state.totalPrice + addedPrice;
     this.setState({
       ingredients: updatedIg,
       totalPrice: newPrice
-    })
-  }
+    });
+    this.isPurchasable(updatedIg);
+  };
 
   //addIngredient = type => {
   //  this.setState(prevState => ingredients[type]: prevState.ingredients[type] +1 )
   //}
 
   removeIngredient = type => {
-    const prevCount = this.state.ingredients[type]
-    const updatedCount = prevCount - 1
+    const prevCount = this.state.ingredients[type];
+    const updatedCount = prevCount - 1;
     const updatedIg = {
       ...this.state.ingredients
-    }
-    updatedIg[type] = updatedCount
-    console.log(updatedIg)
-    const addedPrice = INGREDIENT_PRICES[type]
-    const newPrice = this.state.totalPrice - addedPrice
+    };
+    updatedIg[type] = updatedCount;
+    console.log(updatedIg);
+    const addedPrice = INGREDIENT_PRICES[type];
+    const newPrice = this.state.totalPrice - addedPrice;
     this.setState({
       ingredients: updatedIg,
       totalPrice: newPrice
-    })
-  }
+    });
+    this.isPurchasable(updatedIg);
+  };
 
   //removeIngredient = type => {
   // this.setState(prevSate => ingredients[type]: prevState.ingredients[type] - 1)
@@ -63,9 +75,10 @@ class BurgerBuidlder extends Component {
     return (
       <Aux>
         <Burger ingredients={this.state.ingredients} />
-        <BuildControls 
+        <BuildControls
           ingredientAdded={this.addIngredient}
           ingredientRemoved={this.removeIngredient}
+          purchasable={this.state.purchasable}
           price={this.state.totalPrice}
         />
       </Aux>
