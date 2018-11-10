@@ -66,6 +66,7 @@ class BurgerBuidlder extends Component {
         <BuildControls 
           ingredientAdded={this.addIngredient}
           ingredientRemoved={this.removeIngredient}
+          price={this.state.totalPrice}
         />
       </Aux>
     );
