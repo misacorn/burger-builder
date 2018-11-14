@@ -1,6 +1,5 @@
 import React, {Fragment} from "react";
 
-
 const orderSummary = props => {
   const igSummary = Object.keys(props.ingredients).map(igKey => (
     <li key={igKey}>
