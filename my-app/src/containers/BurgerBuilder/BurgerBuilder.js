@@ -20,7 +20,7 @@ class BurgerBuidlder extends Component {
     },
     totalPrice: 2,
     purchasable: false,
-    puschasing: false
+    purchasing: false
   };
 
   isPurchasable(ingredients) {
@@ -34,6 +34,10 @@ class BurgerBuidlder extends Component {
 
   isPurchasing = () => {
     this.setState({ purchasing: true });
+  };
+
+  purchaseCancelled = () => {
+    this.setState({ purchasing: false });
   };
 
   addIngredient = type => {
@@ -77,25 +81,24 @@ class BurgerBuidlder extends Component {
   // this.setState(prevSate => ingredients[type]: prevState.ingredients[type] - 1)
   //}
 
-  purchaseCancel = () => {
-    this.setState({ purchasing: false });
-  };
-
   render() {
     return (
       <Fragment>
         <Modal
           show={this.state.purchasing}
-          modalClosed={this.state.purchaseCancel}
+          modalClosed={this.purchaseCancelled}
         >
-          <OrderSummary ingredients={this.state.ingredients} />
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            purchaseCancelled={this.purchaseCancel}
+          />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
         <BuildControls
           ingredientAdded={this.addIngredient}
           ingredientRemoved={this.removeIngredient}
           purchasable={this.state.purchasable}
-          ordered={this.state.purchasing}
+          ordered={this.isPurchasing}
           price={this.state.totalPrice}
         />
       </Fragment>
