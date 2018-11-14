@@ -34,7 +34,7 @@ class BurgerBuidlder extends Component {
 
   isPurchasing = () => {
     this.setState({ purchasing: true });
-  }
+  };
 
   addIngredient = type => {
     const prevCount = this.state.ingredients[type];
@@ -77,10 +77,17 @@ class BurgerBuidlder extends Component {
   // this.setState(prevSate => ingredients[type]: prevState.ingredients[type] - 1)
   //}
 
+  purchaseCancel = () => {
+    this.setState({ purchasing: false });
+  };
+
   render() {
     return (
       <Fragment>
-        <Modal show={this.state.purchasing}>
+        <Modal
+          show={this.state.purchasing}
+          modalClosed={this.state.purchaseCancel}
+        >
           <OrderSummary ingredients={this.state.ingredients} />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
