@@ -1,9 +1,9 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 
 const orderSummary = props => {
   const igSummary = Object.keys(props.ingredients).map(igKey => (
     <li key={igKey}>
-      <span style={{ textTransform: "capitalize" }}>{igKey}</span>:
+      <span style={{ textTransform: "capitalize" }}>{igKey}</span>:{" "}
       {props.ingredients[igKey]}
     </li>
   ));
@@ -13,6 +13,8 @@ const orderSummary = props => {
       <p>Your burger with following ingredients:</p>
       <ul>{igSummary}</ul>
       <p>Continue to checkout?</p>
+      <button>CANCEL</button>
+      <button>CONTINUE</button>
     </Fragment>
   );
 };
