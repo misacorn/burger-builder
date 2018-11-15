@@ -36,8 +36,12 @@ class BurgerBuidlder extends Component {
     this.setState({ purchasing: true });
   };
 
-  purchaseCancelled = () => {
+  cancelPurchase = () => {
     this.setState({ purchasing: false });
+  };
+
+  continutePurchase = () => {
+    alert("Yay you continue with this order!");
   };
 
   addIngredient = type => {
@@ -84,13 +88,12 @@ class BurgerBuidlder extends Component {
   render() {
     return (
       <Fragment>
-        <Modal
-          show={this.state.purchasing}
-          modalClosed={this.purchaseCancelled}
-        >
+        <Modal show={this.state.purchasing} modalClosed={this.cancelPurchase}>
           <OrderSummary
             ingredients={this.state.ingredients}
-            purchaseCancelled={this.purchaseCancel}
+            price={this.state.totalPrice.toFixed(2)}
+            purchaseCancelled={this.cancelPurchase}
+            purchaseContinued={this.continutePurchase}
           />
         </Modal>
         <Burger ingredients={this.state.ingredients} />
