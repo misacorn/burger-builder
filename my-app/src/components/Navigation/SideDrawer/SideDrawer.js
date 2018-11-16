@@ -1,18 +1,18 @@
 import React, {Fragment} from "react";
-import Logo from "../../../assets/images/burger-logo.png";
+import Logo from "../../Logo/Logo";
 import NavItems from "../NavigationItems/NavigationItems";
 import classes from "./SideDrawer.module.css";
 
 const sideDrawer = props => {
   return (
-    <Fragment className={classes.SideDrawer}>
+    <div className={classes.SideDrawer}>
       <div className={classes.Logo}>
         <Logo />
       </div>
       <nav>
         <NavItems />
       </nav>
-    </Fragment>
+    </div>
   );
 };
 
